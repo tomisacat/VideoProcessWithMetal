@@ -14,6 +14,8 @@
 		F25281FD1F32E8E80067750A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F25281FB1F32E8E80067750A /* LaunchScreen.storyboard */; };
 		F25282081F32E8E80067750A /* VideoProcessWithMetalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25282071F32E8E80067750A /* VideoProcessWithMetalTests.swift */; };
 		F25282131F32E8E80067750A /* VideoProcessWithMetalUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25282121F32E8E80067750A /* VideoProcessWithMetalUITests.swift */; };
+		F25282211F332CA40067750A /* SeparateRGB.metal in Sources */ = {isa = PBXBuildFile; fileRef = F25282201F332CA40067750A /* SeparateRGB.metal */; };
+		F25282241F345F270067750A /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25282231F345F270067750A /* Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		F252820E1F32E8E80067750A /* VideoProcessWithMetalUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VideoProcessWithMetalUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F25282121F32E8E80067750A /* VideoProcessWithMetalUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoProcessWithMetalUITests.swift; sourceTree = "<group>"; };
 		F25282141F32E8E80067750A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F25282201F332CA40067750A /* SeparateRGB.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = SeparateRGB.metal; sourceTree = "<group>"; };
+		F25282231F345F270067750A /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +103,8 @@
 			children = (
 				F25281F21F32E8E80067750A /* AppDelegate.swift */,
 				F25281F41F32E8E80067750A /* ViewController.swift */,
+				F25282231F345F270067750A /* Utils.swift */,
+				F25282201F332CA40067750A /* SeparateRGB.metal */,
 				F25281F61F32E8E80067750A /* Main.storyboard */,
 				F25281F91F32E8E80067750A /* Assets.xcassets */,
 				F25281FB1F32E8E80067750A /* LaunchScreen.storyboard */,
@@ -258,6 +264,8 @@
 			files = (
 				F25281F51F32E8E80067750A /* ViewController.swift in Sources */,
 				F25281F31F32E8E80067750A /* AppDelegate.swift in Sources */,
+				F25282211F332CA40067750A /* SeparateRGB.metal in Sources */,
+				F25282241F345F270067750A /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,6 +433,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P58JN8D62L;
 				INFOPLIST_FILE = VideoProcessWithMetal/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.tomisacat.VideoProcessWithMetal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -439,6 +448,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = P58JN8D62L;
 				INFOPLIST_FILE = VideoProcessWithMetal/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.tomisacat.VideoProcessWithMetal;
 				PRODUCT_NAME = "$(TARGET_NAME)";
