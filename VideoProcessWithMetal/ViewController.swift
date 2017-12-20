@@ -227,7 +227,15 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         var cvmTexture: CVMetalTexture?
         let width = CVPixelBufferGetWidth(pixelBuffer)
         let height = CVPixelBufferGetHeight(pixelBuffer)
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault, textureCache!, pixelBuffer, nil, mtkView.colorPixelFormat, width, height, 0, &cvmTexture)
+        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
+                                                  textureCache!,
+                                                  pixelBuffer,
+                                                  nil,
+                                                  mtkView.colorPixelFormat,
+                                                  width,
+                                                  height,
+                                                  0,
+                                                  &cvmTexture)
         if let cvmTexture = cvmTexture, let texture = CVMetalTextureGetTexture(cvmTexture) {
             sourceTexture = texture
         }
