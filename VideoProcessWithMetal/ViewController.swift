@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     }()
     var computePipelineState: MTLComputePipelineState?
     var sourceTexture: MTLTexture?
+    var lastTexture: MTLTexture?
     var textureCache: CVMetalTextureCache?
     
     let captureSession = AVCaptureSession()
@@ -137,7 +138,8 @@ class ViewController: UIViewController {
     
     private func initializeComputePipeline() {
         let library = device.makeDefaultLibrary()
-        let shader = library?.makeFunction(name: "separateRGB")
+//        let shader = library?.makeFunction(name: "separateRGB")
+        let shader = library?.makeFunction(name: "diffusion")
         computePipelineState = try! device.makeComputePipelineState(function: shader!)
     }
     
@@ -173,11 +175,16 @@ extension ViewController: MTKViewDelegate {
             return
         }
         
+        if lastTexture == nil {
+            lastTexture = texture.makeTextureView(pixelFormat: texture.pixelFormat)
+        }
+        
         let commandBuffer = commandQueue.makeCommandBuffer()
         let computeCommandEncoder = commandBuffer?.makeComputeCommandEncoder()
         computeCommandEncoder?.setComputePipelineState(computePipelineState!)
         computeCommandEncoder?.setTexture(texture, index: 0)
         computeCommandEncoder?.setTexture(currentDrawable.texture, index: 1)
+        computeCommandEncoder?.setTexture(lastTexture, index: 2)
         
         var diff = Float(CACurrentMediaTime() - beginTime)
         computeCommandEncoder?.setBytes(&diff, length: MemoryLayout<Float>.size, index: 0)
@@ -206,6 +213,8 @@ extension ViewController: MTKViewDelegate {
             
             CVPixelBufferUnlockBaseAddress(p, CVPixelBufferLockFlags(rawValue: 0))
         }
+        
+        lastTexture = currentDrawable.texture
         
         commandBuffer?.present(currentDrawable)
         commandBuffer?.commit()
