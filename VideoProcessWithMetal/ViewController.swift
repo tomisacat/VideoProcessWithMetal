@@ -16,35 +16,24 @@ class ViewController: UIViewController {
     // IBOutlet
     @IBOutlet var mtkView: MTKView!
     
-    // property
-    let device = MTLCreateSystemDefaultDevice()!
-    lazy var commandQueue: MTLCommandQueue = {
-        return self.device.makeCommandQueue()!
-    }()
-    var computePipelineState: MTLComputePipelineState?
-    var sourceTexture: MTLTexture?
-    var lastTexture: MTLTexture?
-    var textureCache: CVMetalTextureCache?
-    
     let captureSession = AVCaptureSession()
     let sampleBufferCallbackQueue = DispatchQueue(label: "video.process.metal")
-    
     var writer: AVAssetWriter!
     var writerInput: AVAssetWriterInput!
     var adaptor: AVAssetWriterInputPixelBufferAdaptor!
     var isRecording: Bool = false
     
-    var beginTime = CACurrentMediaTime()
     var lastSampleTime: CMTime = kCMTimeZero
     var processedPixelBuffer: CVPixelBuffer?
+    
+//    let shader = SeparateRGB()
+    let shader = Diffusion()
     
     // method
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupView()
-        initializeComputePipeline()
-        createTextureCache()
         configCaptureSession()
     }
     
@@ -57,16 +46,12 @@ class ViewController: UIViewController {
     }
     
     private func setupView() {
-        mtkView.device = device
+        mtkView.device = MetalManager.shared.device
         mtkView.framebufferOnly = false
         mtkView.delegate = self
-        mtkView.colorPixelFormat = .bgra8Unorm
+        mtkView.colorPixelFormat = MetalManager.shared.colorPixelFormat
         mtkView.contentMode = .scaleAspectFit
         mtkView.isPaused = true
-    }
-    
-    private func createTextureCache() {
-        CVMetalTextureCacheCreate(kCFAllocatorDefault, nil, device, nil, &textureCache)
     }
     
     private func configCaptureSession() {
@@ -136,13 +121,6 @@ class ViewController: UIViewController {
         captureSession.commitConfiguration()
     }
     
-    private func initializeComputePipeline() {
-        let library = device.makeDefaultLibrary()
-//        let shader = library?.makeFunction(name: "separateRGB")
-        let shader = library?.makeFunction(name: "diffusion")
-        computePipelineState = try! device.makeComputePipelineState(function: shader!)
-    }
-    
     @IBAction func captureAction(_ sender: Any) {
         let button = sender as! UIButton
         
@@ -169,63 +147,6 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: MTKViewDelegate {
-    func draw(in view: MTKView) {
-        guard let currentDrawable = mtkView.currentDrawable, let texture = sourceTexture else {
-            return
-        }
-        
-        if lastTexture == nil {
-            lastTexture = texture.makeTextureView(pixelFormat: texture.pixelFormat)
-        }
-        
-        let commandBuffer = commandQueue.makeCommandBuffer()
-        let computeCommandEncoder = commandBuffer?.makeComputeCommandEncoder()
-        computeCommandEncoder?.setComputePipelineState(computePipelineState!)
-        computeCommandEncoder?.setTexture(texture, index: 0)
-        computeCommandEncoder?.setTexture(currentDrawable.texture, index: 1)
-        computeCommandEncoder?.setTexture(lastTexture, index: 2)
-        
-        var diff = Float(CACurrentMediaTime() - beginTime)
-        computeCommandEncoder?.setBytes(&diff, length: MemoryLayout<Float>.size, index: 0)
-        computeCommandEncoder?.dispatchThreadgroups(texture.threadGroups(pipeline: computePipelineState!), threadsPerThreadgroup: texture.threadGroupCount(pipeline: computePipelineState!))
-        computeCommandEncoder?.endEncoding()
-        
-        if self.isRecording && adaptor.assetWriterInput.isReadyForMoreMediaData {
-            if processedPixelBuffer == nil {
-                CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, adaptor.pixelBufferPool!, &processedPixelBuffer)
-            }
-            
-            guard let p = processedPixelBuffer else {
-                return
-            }
-            
-            CVPixelBufferLockBaseAddress(p, CVPixelBufferLockFlags(rawValue: 0))
-            
-            let outputTexture = currentDrawable.texture
-            let region = MTLRegionMake2D(0, 0, 720, 1280)
-            
-            let buffer = CVPixelBufferGetBaseAddress(p)
-            let bytesPerRow = 4 * region.size.width
-            outputTexture.getBytes(buffer!, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
-            
-            adaptor.append(p, withPresentationTime: lastSampleTime)
-            
-            CVPixelBufferUnlockBaseAddress(p, CVPixelBufferLockFlags(rawValue: 0))
-        }
-        
-        lastTexture = currentDrawable.texture
-        
-        commandBuffer?.present(currentDrawable)
-        commandBuffer?.commit()
-//        commandBuffer?.waitUntilCompleted()
-    }
-    
-    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
-        
-    }
-}
-
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -233,22 +154,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
         
-        var cvmTexture: CVMetalTexture?
-        let width = CVPixelBufferGetWidth(pixelBuffer)
-        let height = CVPixelBufferGetHeight(pixelBuffer)
-        CVMetalTextureCacheCreateTextureFromImage(kCFAllocatorDefault,
-                                                  textureCache!,
-                                                  pixelBuffer,
-                                                  nil,
-                                                  mtkView.colorPixelFormat,
-                                                  width,
-                                                  height,
-                                                  0,
-                                                  &cvmTexture)
-        if let cvmTexture = cvmTexture, let texture = CVMetalTextureGetTexture(cvmTexture) {
-            sourceTexture = texture
-        }
-        
+        MetalManager.shared.processNext(pixelBuffer: pixelBuffer)
         lastSampleTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
         
         DispatchQueue.main.sync {
@@ -257,16 +163,47 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     }
 }
 
-extension MTLTexture {
-    func threadGroupCount(pipeline: MTLComputePipelineState) -> MTLSize {
-        return MTLSizeMake(pipeline.threadExecutionWidth,
-                           pipeline.maxTotalThreadsPerThreadgroup / pipeline.threadExecutionWidth,
-                           1)
+extension ViewController: MTKViewDelegate {
+    func draw(in view: MTKView) {
+        guard let currentDrawable = mtkView.currentDrawable,
+            let texture = MetalManager.shared.sourceTexture,
+            let commandBuffer = MetalManager.shared.commandQueue?.makeCommandBuffer() else {
+            return
+        }
+        
+        shader.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: currentDrawable.texture)
+        append(texture: currentDrawable.texture)
+        
+        commandBuffer.present(currentDrawable)
+        commandBuffer.commit()
     }
     
-    func threadGroups(pipeline: MTLComputePipelineState) -> MTLSize {
-        let groupCount = threadGroupCount(pipeline: pipeline)
-        return MTLSizeMake((self.width + groupCount.width - 1) / groupCount.width, (self.height + groupCount.height - 1) / groupCount.height, 1)
+    private func append(texture: MTLTexture) {
+        if self.isRecording && adaptor.assetWriterInput.isReadyForMoreMediaData {
+            guard let pbp = adaptor.pixelBufferPool else {
+                return
+            }
+            
+            if processedPixelBuffer == nil {
+                CVPixelBufferPoolCreatePixelBuffer(kCFAllocatorDefault, pbp, &processedPixelBuffer)
+            }
+            
+            guard let p = processedPixelBuffer else {
+                return
+            }
+            
+            CVPixelBufferLockBaseAddress(p, CVPixelBufferLockFlags(rawValue: 0))
+            
+            let region = MTLRegionMake2D(0, 0, 720, 1280)
+            let buffer = CVPixelBufferGetBaseAddress(p)
+            let bytesPerRow = 4 * region.size.width
+            texture.getBytes(buffer!, bytesPerRow: bytesPerRow, from: region, mipmapLevel: 0)
+            
+            adaptor.append(p, withPresentationTime: lastSampleTime)
+            
+            CVPixelBufferUnlockBaseAddress(p, CVPixelBufferLockFlags(rawValue: 0))
+        }
     }
+    
+    func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {}
 }
-

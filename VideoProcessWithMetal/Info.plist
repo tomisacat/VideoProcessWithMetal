@@ -8,6 +8,8 @@
     <string>Microphone Usage Needed</string>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>Photo Library Usage Needed</string>
+    <key>NSPhotoLibraryAddUsageDescription</key>
+    <string>Add Video to Library</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
