@@ -146,10 +146,6 @@ class ViewController: UIViewController {
             button.setTitle("Start", for: .normal)
         }
     }
-    
-    @IBAction func shaderChange(_ sender: UISwitch) {
-//        shader = shader == separateRGB ? diffusion : separateRGB
-    }
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {

@@ -35,9 +35,6 @@
                                         </button>
                                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhI-Yc-ffa">
                                             <rect key="frame" x="8" y="5" width="51" height="31"/>
-                                            <connections>
-                                                <action selector="shaderChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="ZI4-bD-8c2"/>
-                                            </connections>
                                         </switch>
                                     </subviews>
                                     <constraints>
