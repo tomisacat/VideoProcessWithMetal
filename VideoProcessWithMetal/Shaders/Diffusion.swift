@@ -13,9 +13,11 @@ import UIKit
 class Diffusion: ShaderProtocol {
     private var computePipelineState: MTLComputePipelineState?
     private var lastTexture: MTLTexture?
+    var identifier: String
     
     init() {
         computePipelineState = MetalManager.shared.makeComputePipelineState(functionName: "diffusion")
+        identifier = String.random()
     }
     
     func encode(commandBuffer: MTLCommandBuffer, sourceTexture: MTLTexture, destinationTexture: MTLTexture) {
@@ -40,5 +42,9 @@ class Diffusion: ShaderProtocol {
         computeCommandEncoder?.endEncoding()
         
         lastTexture = destinationTexture
+    }
+    
+    static func ==(lhs: Diffusion, rhs: Diffusion) -> Bool {
+        return true
     }
 }

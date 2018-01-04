@@ -25,7 +25,7 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaU-wB-jav">
-                                            <rect key="frame" x="170" y="5" width="34" height="30"/>
+                                            <rect key="frame" x="333" y="5" width="34" height="30"/>
                                             <state key="normal" title="Start">
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
@@ -33,10 +33,18 @@
                                                 <action selector="captureAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SWb-4Y-neV"/>
                                             </connections>
                                         </button>
+                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhI-Yc-ffa">
+                                            <rect key="frame" x="8" y="5" width="51" height="31"/>
+                                            <connections>
+                                                <action selector="shaderChange:" destination="BYZ-38-t0r" eventType="valueChanged" id="ZI4-bD-8c2"/>
+                                            </connections>
+                                        </switch>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="UaU-wB-jav" firstAttribute="centerX" secondItem="Dys-8W-b6b" secondAttribute="centerX" id="VzH-7g-Btp"/>
-                                        <constraint firstItem="UaU-wB-jav" firstAttribute="centerY" secondItem="Dys-8W-b6b" secondAttribute="centerY" id="gaw-RX-6RP"/>
+                                        <constraint firstItem="UaU-wB-jav" firstAttribute="centerY" secondItem="Dys-8W-b6b" secondAttribute="centerY" id="8s3-XU-QcQ"/>
+                                        <constraint firstAttribute="trailing" secondItem="UaU-wB-jav" secondAttribute="trailing" constant="8" id="MBf-i1-sZA"/>
+                                        <constraint firstItem="xhI-Yc-ffa" firstAttribute="leading" secondItem="Dys-8W-b6b" secondAttribute="leading" constant="8" id="f4g-Ld-ilT"/>
+                                        <constraint firstItem="xhI-Yc-ffa" firstAttribute="centerY" secondItem="Dys-8W-b6b" secondAttribute="centerY" id="iaa-MX-0ZI"/>
                                     </constraints>
                                 </view>
                                 <constraints>
@@ -55,6 +63,7 @@
                     </view>
                     <connections>
                         <outlet property="mtkView" destination="8bC-Xf-vdC" id="2L4-fY-bTM"/>
+                        <outlet property="shaderSwitch" destination="xhI-Yc-ffa" id="pgQ-tm-zLc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

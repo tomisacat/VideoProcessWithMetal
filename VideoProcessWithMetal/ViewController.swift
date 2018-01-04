@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     
     // IBOutlet
     @IBOutlet var mtkView: MTKView!
+    @IBOutlet weak var shaderSwitch: UISwitch!
     
     let captureSession = AVCaptureSession()
     let sampleBufferCallbackQueue = DispatchQueue(label: "video.process.metal")
@@ -26,8 +27,8 @@ class ViewController: UIViewController {
     var lastSampleTime: CMTime = kCMTimeZero
     var processedPixelBuffer: CVPixelBuffer?
     
-//    let shader = SeparateRGB()
-    let shader = Diffusion()
+    private let separateRGB = SeparateRGB()
+    private let diffusion = Diffusion()
     
     // method
     override func viewDidLoad() {
@@ -145,6 +146,10 @@ class ViewController: UIViewController {
             button.setTitle("Start", for: .normal)
         }
     }
+    
+    @IBAction func shaderChange(_ sender: UISwitch) {
+//        shader = shader == separateRGB ? diffusion : separateRGB
+    }
 }
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -169,6 +174,13 @@ extension ViewController: MTKViewDelegate {
             let texture = MetalManager.shared.sourceTexture,
             let commandBuffer = MetalManager.shared.commandQueue?.makeCommandBuffer() else {
             return
+        }
+        
+        let shader: ShaderProtocol
+        if shaderSwitch.isOn {
+            shader = separateRGB
+        } else {
+            shader = diffusion
         }
         
         shader.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: currentDrawable.texture)

@@ -12,9 +12,11 @@ import UIKit
 
 class SeparateRGB: ShaderProtocol {
     private var computePipelineState: MTLComputePipelineState?
+    var identifier: String
     
     init() {
         computePipelineState = MetalManager.shared.makeComputePipelineState(functionName: "separateRGB")
+        identifier = String.random()
     }
     
     func encode(commandBuffer: MTLCommandBuffer, sourceTexture: MTLTexture, destinationTexture: MTLTexture) {
@@ -32,5 +34,9 @@ class SeparateRGB: ShaderProtocol {
         computeCommandEncoder?.dispatchThreadgroups(sourceTexture.threadGroups(pipeline: cps),
                                                     threadsPerThreadgroup: sourceTexture.threadGroupCount(pipeline: cps))
         computeCommandEncoder?.endEncoding()
+    }
+    
+    static func ==(lhs: SeparateRGB, rhs: SeparateRGB) -> Bool {
+        return lhs.identifier == rhs.identifier
     }
 }
