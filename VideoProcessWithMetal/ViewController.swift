@@ -32,6 +32,7 @@ class ViewController: UIViewController {
     private let blurredMotion = BlurredMotion()
     private let colorTransform = ColorTransform()
     private let mirror = Mirror()
+    private let cartoon = Cartoon()
     
     // method
     override func viewDidLoad() {
@@ -179,7 +180,7 @@ extension ViewController: MTKViewDelegate {
         if shaderSwitch.isOn {
             shader = separateRGB
         } else {
-            shader = mirror
+            shader = cartoon
         }
         
         shader.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: currentDrawable.texture)
