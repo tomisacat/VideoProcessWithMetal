@@ -30,6 +30,7 @@ class ViewController: UIViewController {
     private let separateRGB = SeparateRGB()
     private let diffusion = Diffusion()
     private let blurredMotion = BlurredMotion()
+    private let colorTransform = ColorTransform()
     
     // method
     override func viewDidLoad() {
@@ -177,7 +178,7 @@ extension ViewController: MTKViewDelegate {
         if shaderSwitch.isOn {
             shader = separateRGB
         } else {
-            shader = blurredMotion
+            shader = colorTransform
         }
         
         shader.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: currentDrawable.texture)

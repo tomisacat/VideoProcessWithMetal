@@ -23,6 +23,8 @@
 		F25282241F345F270067750A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25282231F345F270067750A /* Extensions.swift */; };
 		F25FFDEB1FFF57BA00FB5ADA /* BlurredMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25FFDEA1FFF57BA00FB5ADA /* BlurredMotion.swift */; };
 		F25FFDED1FFF57C900FB5ADA /* BlurredMotion.metal in Sources */ = {isa = PBXBuildFile; fileRef = F25FFDEC1FFF57C900FB5ADA /* BlurredMotion.metal */; };
+		F25FFDEF1FFF5B4D00FB5ADA /* ColorTransform.metal in Sources */ = {isa = PBXBuildFile; fileRef = F25FFDEE1FFF5B4D00FB5ADA /* ColorTransform.metal */; };
+		F25FFDF11FFF764000FB5ADA /* ColorTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25FFDF01FFF764000FB5ADA /* ColorTransform.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +67,8 @@
 		F25282231F345F270067750A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		F25FFDEA1FFF57BA00FB5ADA /* BlurredMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurredMotion.swift; sourceTree = "<group>"; };
 		F25FFDEC1FFF57C900FB5ADA /* BlurredMotion.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = BlurredMotion.metal; sourceTree = "<group>"; };
+		F25FFDEE1FFF5B4D00FB5ADA /* ColorTransform.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ColorTransform.metal; sourceTree = "<group>"; };
+		F25FFDF01FFF764000FB5ADA /* ColorTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTransform.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +102,7 @@
 				F25282201F332CA40067750A /* SeparateRGB.metal */,
 				F24C93B41FEA5A64001CA196 /* Diffusion.metal */,
 				F25FFDEC1FFF57C900FB5ADA /* BlurredMotion.metal */,
+				F25FFDEE1FFF5B4D00FB5ADA /* ColorTransform.metal */,
 			);
 			path = ShaderSources;
 			sourceTree = "<group>";
@@ -109,6 +114,7 @@
 				F22E96E91FF276D100589D6B /* SeparateRGB.swift */,
 				F22E96ED1FFCFA6500589D6B /* Diffusion.swift */,
 				F25FFDEA1FFF57BA00FB5ADA /* BlurredMotion.swift */,
+				F25FFDF01FFF764000FB5ADA /* ColorTransform.swift */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -303,9 +309,11 @@
 				F25FFDED1FFF57C900FB5ADA /* BlurredMotion.metal in Sources */,
 				F22E96EE1FFCFA6500589D6B /* Diffusion.swift in Sources */,
 				F24C93B51FEA5A64001CA196 /* Diffusion.metal in Sources */,
+				F25FFDEF1FFF5B4D00FB5ADA /* ColorTransform.metal in Sources */,
 				F25281F51F32E8E80067750A /* ViewController.swift in Sources */,
 				F25281F31F32E8E80067750A /* AppDelegate.swift in Sources */,
 				F22E96EA1FF276D100589D6B /* SeparateRGB.swift in Sources */,
+				F25FFDF11FFF764000FB5ADA /* ColorTransform.swift in Sources */,
 				F25282211F332CA40067750A /* SeparateRGB.metal in Sources */,
 				F22E96EC1FFCB74600589D6B /* MetalManager.swift in Sources */,
 				F25282241F345F270067750A /* Extensions.swift in Sources */,
