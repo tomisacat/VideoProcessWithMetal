@@ -17,7 +17,7 @@ kernel void drunk(texture2d<float, access::read> inTexture [[ texture(0) ]],
 {
     float2 uv = float2(gid) / float2(inTexture.get_width(), inTexture.get_height());
     float2 size = float2(inTexture.get_width(), inTexture.get_height());
-    float2 offset = 0.01 * (float2(0.5) - uv) * 3.0;
+    float2 offset = 0.01 * (float2(0.5) - uv) * (sin(*time * 3) + 1.0);
     
     float4 result = inTexture.read(gid) * 0.18;
     result += inTexture.read(uint2((uv + offset) * size)) * 0.15;
