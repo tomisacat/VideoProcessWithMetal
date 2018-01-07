@@ -33,6 +33,7 @@ class ViewController: UIViewController {
     private let colorTransform = ColorTransform()
     private let mirror = Mirror()
     private let cartoon = Cartoon()
+    private let drunk = Drunk()
     
     // method
     override func viewDidLoad() {
@@ -180,7 +181,7 @@ extension ViewController: MTKViewDelegate {
         if shaderSwitch.isOn {
             shader = separateRGB
         } else {
-            shader = cartoon
+            shader = drunk
         }
         
         shader.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: currentDrawable.texture)
