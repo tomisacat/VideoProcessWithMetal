@@ -36,6 +36,7 @@ class ViewController: UIViewController {
     private let drunk = Drunk()
     private let endless = Endless()
     private let edgeGlow = EdgeGlow()
+    private let crt = CRT()
     
     // method
     override func viewDidLoad() {
@@ -183,7 +184,7 @@ extension ViewController: MTKViewDelegate {
         if shaderSwitch.isOn {
             shader = separateRGB
         } else {
-            shader = edgeGlow
+            shader = crt
         }
         
         shader.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: currentDrawable.texture)

@@ -35,6 +35,8 @@
 		F2BA297A200347670085299C /* Endless.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BA2979200347670085299C /* Endless.swift */; };
 		F2BA297C200351890085299C /* EdgeGlow.metal in Sources */ = {isa = PBXBuildFile; fileRef = F2BA297B200351890085299C /* EdgeGlow.metal */; };
 		F2BA297E200356FD0085299C /* EdgeGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BA297D200356FD0085299C /* EdgeGlow.swift */; };
+		F2BA2980200357B40085299C /* CRT.metal in Sources */ = {isa = PBXBuildFile; fileRef = F2BA297F200357B40085299C /* CRT.metal */; };
+		F2BA298220035D020085299C /* CRT.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BA298120035D020085299C /* CRT.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +91,8 @@
 		F2BA2979200347670085299C /* Endless.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Endless.swift; sourceTree = "<group>"; };
 		F2BA297B200351890085299C /* EdgeGlow.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = EdgeGlow.metal; sourceTree = "<group>"; };
 		F2BA297D200356FD0085299C /* EdgeGlow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeGlow.swift; sourceTree = "<group>"; };
+		F2BA297F200357B40085299C /* CRT.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = CRT.metal; sourceTree = "<group>"; };
+		F2BA298120035D020085299C /* CRT.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRT.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +132,7 @@
 				F2BA296E20023A140085299C /* Drunk.metal */,
 				F2BA297720032C160085299C /* Endless.metal */,
 				F2BA297B200351890085299C /* EdgeGlow.metal */,
+				F2BA297F200357B40085299C /* CRT.metal */,
 			);
 			path = ShaderSources;
 			sourceTree = "<group>";
@@ -145,6 +150,7 @@
 				F2BA2970200244770085299C /* Drunk.swift */,
 				F2BA2979200347670085299C /* Endless.swift */,
 				F2BA297D200356FD0085299C /* EdgeGlow.swift */,
+				F2BA298120035D020085299C /* CRT.swift */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -337,6 +343,7 @@
 			files = (
 				F2BA297E200356FD0085299C /* EdgeGlow.swift in Sources */,
 				F25FFDEB1FFF57BA00FB5ADA /* BlurredMotion.swift in Sources */,
+				F2BA298220035D020085299C /* CRT.swift in Sources */,
 				F25FFDED1FFF57C900FB5ADA /* BlurredMotion.metal in Sources */,
 				F22E96EE1FFCFA6500589D6B /* Diffusion.swift in Sources */,
 				F2BA297C200351890085299C /* EdgeGlow.metal in Sources */,
@@ -346,6 +353,7 @@
 				F2BA2971200244770085299C /* Drunk.swift in Sources */,
 				F25281F51F32E8E80067750A /* ViewController.swift in Sources */,
 				F2BA297820032C160085299C /* Endless.metal in Sources */,
+				F2BA2980200357B40085299C /* CRT.metal in Sources */,
 				F2BA2969200221A30085299C /* Mirror.swift in Sources */,
 				F2BA296720021EF80085299C /* Mirror.metal in Sources */,
 				F25281F31F32E8E80067750A /* AppDelegate.swift in Sources */,
