@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     private let mirror = Mirror()
     private let cartoon = Cartoon()
     private let drunk = Drunk()
+    private let endless = Endless()
     
     // method
     override func viewDidLoad() {
@@ -181,7 +182,7 @@ extension ViewController: MTKViewDelegate {
         if shaderSwitch.isOn {
             shader = separateRGB
         } else {
-            shader = drunk
+            shader = endless
         }
         
         shader.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: currentDrawable.texture)
