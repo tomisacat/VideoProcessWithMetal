@@ -35,7 +35,7 @@ class Diffusion: ShaderProtocol {
         computeCommandEncoder?.setTexture(destinationTexture, index: 1)
         computeCommandEncoder?.setTexture(lastTexture, index: 2)
         
-        var diff = Float(CACurrentMediaTime() - MetalManager.shared.beginTime)
+        var diff = MetalManager.shared.nextTime
         computeCommandEncoder?.setBytes(&diff, length: MemoryLayout<Float>.size, index: 0)
         computeCommandEncoder?.dispatchThreadgroups(sourceTexture.threadGroups(pipeline: cps),
                                                     threadsPerThreadgroup: sourceTexture.threadGroupCount(pipeline: cps))

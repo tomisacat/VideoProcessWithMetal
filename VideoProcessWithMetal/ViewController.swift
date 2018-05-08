@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     
     // IBOutlet
     @IBOutlet var mtkView: MTKView!
-    @IBOutlet weak var shaderSwitch: UISwitch!
     
     let captureSession = AVCaptureSession()
     let sampleBufferCallbackQueue = DispatchQueue(label: "video.process.metal")
@@ -23,20 +22,22 @@ class ViewController: UIViewController {
     var writerInput: AVAssetWriterInput!
     var adaptor: AVAssetWriterInputPixelBufferAdaptor!
     var isRecording: Bool = false
-    
     var lastSampleTime: CMTime = kCMTimeZero
     var processedPixelBuffer: CVPixelBuffer?
     
-    private let separateRGB = SeparateRGB()
-    private let diffusion = Diffusion()
-    private let blurredMotion = BlurredMotion()
-    private let colorTransform = ColorTransform()
-    private let mirror = Mirror()
-    private let cartoon = Cartoon()
-    private let drunk = Drunk()
-    private let endless = Endless()
-    private let edgeGlow = EdgeGlow()
-    private let crt = CRT()
+    private let filters: [ShaderProtocol] = [
+        SeparateRGB(),
+        Diffusion(),
+        BlurredMotion(),
+        ColorTransform(),
+        Mirror(),
+        Cartoon(),
+        Drunk(),
+        Endless(),
+        EdgeGlow(),
+        CRT()
+    ]
+    private var current = 0
     
     // method
     override func viewDidLoad() {
@@ -54,6 +55,14 @@ class ViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        sampleBufferCallbackQueue.async {
+            self.captureSession.stopRunning()
+        }
+    }
+    
     private func setupView() {
         mtkView.device = MetalManager.shared.device
         mtkView.framebufferOnly = false
@@ -61,6 +70,13 @@ class ViewController: UIViewController {
         mtkView.colorPixelFormat = MetalManager.shared.colorPixelFormat
         mtkView.contentMode = .scaleAspectFit
         mtkView.isPaused = true
+        
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(changeFilter))
+        mtkView.addGestureRecognizer(swipe)
+    }
+    
+    @objc private func changeFilter() {
+        current = (current + 1) % filters.count
     }
     
     private func configCaptureSession() {
@@ -102,7 +118,7 @@ class ViewController: UIViewController {
             writer = try! AVAssetWriter(outputURL: URL.randomUrl(), fileType: .mov)
             
             let videoCompressionProperties = [
-                AVVideoAverageBitRateKey: 6000000
+                AVVideoAverageBitRateKey: 12000000
             ]
             
             let videoSettings: [String : Any] = [
@@ -163,7 +179,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             return
         }
         
-        MetalManager.shared.processNext(pixelBuffer: pixelBuffer)
+        MetalManager.shared.processNext(pixelBuffer)
         lastSampleTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
         
         DispatchQueue.main.sync {
@@ -180,12 +196,7 @@ extension ViewController: MTKViewDelegate {
             return
         }
         
-        let shader: ShaderProtocol
-        if shaderSwitch.isOn {
-            shader = separateRGB
-        } else {
-            shader = crt
-        }
+        let shader: ShaderProtocol = filters[current]
         
         shader.encode(commandBuffer: commandBuffer, sourceTexture: texture, destinationTexture: currentDrawable.texture)
         append(texture: currentDrawable.texture)

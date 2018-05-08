@@ -29,7 +29,7 @@ class EdgeGlow: ShaderProtocol {
         computeCommandEncoder?.setTexture(sourceTexture, index: 0)
         computeCommandEncoder?.setTexture(destinationTexture, index: 1)
         
-        var diff = Float(CACurrentMediaTime() - MetalManager.shared.beginTime)
+        var diff = MetalManager.shared.nextTime
         computeCommandEncoder?.setBytes(&diff, length: MemoryLayout<Float>.size, index: 0)
         computeCommandEncoder?.dispatchThreadgroups(sourceTexture.threadGroups(pipeline: cps),
                                                     threadsPerThreadgroup: sourceTexture.threadGroupCount(pipeline: cps))

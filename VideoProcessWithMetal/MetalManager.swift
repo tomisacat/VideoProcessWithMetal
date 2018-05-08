@@ -10,6 +10,7 @@ import Foundation
 import Metal
 import MetalKit
 import MetalPerformanceShaders
+import CoreMedia
 
 class MetalManager: NSObject {
     static let shared: MetalManager = MetalManager()
@@ -18,9 +19,16 @@ class MetalManager: NSObject {
     var sourceTexture: MTLTexture?
     var destinationTexture: MTLTexture?
     var colorPixelFormat: MTLPixelFormat = .bgra8Unorm
-    
-    private(set) var beginTime = CACurrentMediaTime()
-    var time: Float = 0
+
+    // random time(actually NOT random)
+    private let times: [Float] = (0..<50).map { 1.111 + Float($0) * 0.05 }
+    private var current = 0
+    var nextTime: Float {
+        let t = times[current]
+        current = (current + 1) % times.count
+        
+        return t
+    }
     
     private var library: MTLLibrary?
     private(set) var commandQueue: MTLCommandQueue?
@@ -44,7 +52,24 @@ class MetalManager: NSObject {
         return try? device.makeComputePipelineState(function: function)
     }
     
-    func processNext(pixelBuffer: CVPixelBuffer) {
+    func makeRenderPipelineState(vertexName: String? = nil,
+                                 fragmentName: String? = nil,
+                                 colorPixelFormat: MTLPixelFormat = .bgra8Unorm) -> MTLRenderPipelineState? {
+        let pipelineDescriptor = MTLRenderPipelineDescriptor()
+        pipelineDescriptor.sampleCount = 1
+        pipelineDescriptor.colorAttachments[0].pixelFormat = colorPixelFormat
+        pipelineDescriptor.depthAttachmentPixelFormat = .invalid
+        if let vn = vertexName {
+            pipelineDescriptor.vertexFunction = library?.makeFunction(name: vn)
+        }
+        if let fn = fragmentName {
+            pipelineDescriptor.fragmentFunction = library?.makeFunction(name: fn)
+        }
+        
+        return try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+    }
+    
+    func processNext(_ pixelBuffer: CVPixelBuffer) {
         guard let tc = textureCache else {
             return
         }
@@ -64,5 +89,13 @@ class MetalManager: NSObject {
         if let cvmTexture = cvmTexture, let texture = CVMetalTextureGetTexture(cvmTexture) {
             sourceTexture = texture
         }
+    }
+    
+    func processNext(_ sampleBuffer: CMSampleBuffer) {
+        guard let cv = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+            return
+        }
+        
+        processNext(cv)
     }
 }

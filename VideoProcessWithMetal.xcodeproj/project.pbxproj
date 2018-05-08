@@ -25,6 +25,10 @@
 		F25FFDED1FFF57C900FB5ADA /* BlurredMotion.metal in Sources */ = {isa = PBXBuildFile; fileRef = F25FFDEC1FFF57C900FB5ADA /* BlurredMotion.metal */; };
 		F25FFDEF1FFF5B4D00FB5ADA /* ColorTransform.metal in Sources */ = {isa = PBXBuildFile; fileRef = F25FFDEE1FFF5B4D00FB5ADA /* ColorTransform.metal */; };
 		F25FFDF11FFF764000FB5ADA /* ColorTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25FFDF01FFF764000FB5ADA /* ColorTransform.swift */; };
+		F2A971C720A00E7F0025B802 /* LocalFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A971C620A00E7F0025B802 /* LocalFileViewController.swift */; };
+		F2A971CB20A0763D0025B802 /* LocalFileReaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A971CA20A0763D0025B802 /* LocalFileReaderViewController.swift */; };
+		F2A971CD20A1761E0025B802 /* PassThrough.metal in Sources */ = {isa = PBXBuildFile; fileRef = F2A971CC20A1761E0025B802 /* PassThrough.metal */; };
+		F2A971CF20A17C230025B802 /* sample.mov in Resources */ = {isa = PBXBuildFile; fileRef = F2A971CE20A17C230025B802 /* sample.mov */; };
 		F2BA296720021EF80085299C /* Mirror.metal in Sources */ = {isa = PBXBuildFile; fileRef = F2BA296620021EF80085299C /* Mirror.metal */; };
 		F2BA2969200221A30085299C /* Mirror.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2BA2968200221A30085299C /* Mirror.swift */; };
 		F2BA296B200229320085299C /* Cartoon.metal in Sources */ = {isa = PBXBuildFile; fileRef = F2BA296A200229320085299C /* Cartoon.metal */; };
@@ -81,6 +85,10 @@
 		F25FFDEC1FFF57C900FB5ADA /* BlurredMotion.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = BlurredMotion.metal; sourceTree = "<group>"; };
 		F25FFDEE1FFF5B4D00FB5ADA /* ColorTransform.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ColorTransform.metal; sourceTree = "<group>"; };
 		F25FFDF01FFF764000FB5ADA /* ColorTransform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorTransform.swift; sourceTree = "<group>"; };
+		F2A971C620A00E7F0025B802 /* LocalFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileViewController.swift; sourceTree = "<group>"; };
+		F2A971CA20A0763D0025B802 /* LocalFileReaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFileReaderViewController.swift; sourceTree = "<group>"; };
+		F2A971CC20A1761E0025B802 /* PassThrough.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = PassThrough.metal; sourceTree = "<group>"; };
+		F2A971CE20A17C230025B802 /* sample.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = sample.mov; sourceTree = "<group>"; };
 		F2BA296620021EF80085299C /* Mirror.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Mirror.metal; sourceTree = "<group>"; };
 		F2BA2968200221A30085299C /* Mirror.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mirror.swift; sourceTree = "<group>"; };
 		F2BA296A200229320085299C /* Cartoon.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Cartoon.metal; sourceTree = "<group>"; };
@@ -133,6 +141,7 @@
 				F2BA297720032C160085299C /* Endless.metal */,
 				F2BA297B200351890085299C /* EdgeGlow.metal */,
 				F2BA297F200357B40085299C /* CRT.metal */,
+				F2A971CC20A1761E0025B802 /* PassThrough.metal */,
 			);
 			path = ShaderSources;
 			sourceTree = "<group>";
@@ -182,12 +191,15 @@
 				F22E96E71FF2767500589D6B /* ShaderSources */,
 				F25281F21F32E8E80067750A /* AppDelegate.swift */,
 				F25281F41F32E8E80067750A /* ViewController.swift */,
+				F2A971C620A00E7F0025B802 /* LocalFileViewController.swift */,
+				F2A971CA20A0763D0025B802 /* LocalFileReaderViewController.swift */,
 				F22E96EB1FFCB74600589D6B /* MetalManager.swift */,
 				F25282231F345F270067750A /* Extensions.swift */,
 				F25281F61F32E8E80067750A /* Main.storyboard */,
 				F25281F91F32E8E80067750A /* Assets.xcassets */,
 				F25281FB1F32E8E80067750A /* LaunchScreen.storyboard */,
 				F25281FE1F32E8E80067750A /* Info.plist */,
+				F2A971CE20A17C230025B802 /* sample.mov */,
 			);
 			path = VideoProcessWithMetal;
 			sourceTree = "<group>";
@@ -314,6 +326,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2A971CF20A17C230025B802 /* sample.mov in Resources */,
 				F25281FD1F32E8E80067750A /* LaunchScreen.storyboard in Resources */,
 				F25281FA1F32E8E80067750A /* Assets.xcassets in Resources */,
 				F25281F81F32E8E80067750A /* Main.storyboard in Resources */,
@@ -342,6 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2BA297E200356FD0085299C /* EdgeGlow.swift in Sources */,
+				F2A971CB20A0763D0025B802 /* LocalFileReaderViewController.swift in Sources */,
 				F25FFDEB1FFF57BA00FB5ADA /* BlurredMotion.swift in Sources */,
 				F2BA298220035D020085299C /* CRT.swift in Sources */,
 				F25FFDED1FFF57C900FB5ADA /* BlurredMotion.metal in Sources */,
@@ -351,6 +365,7 @@
 				F2BA296D200234B10085299C /* Cartoon.swift in Sources */,
 				F25FFDEF1FFF5B4D00FB5ADA /* ColorTransform.metal in Sources */,
 				F2BA2971200244770085299C /* Drunk.swift in Sources */,
+				F2A971C720A00E7F0025B802 /* LocalFileViewController.swift in Sources */,
 				F25281F51F32E8E80067750A /* ViewController.swift in Sources */,
 				F2BA297820032C160085299C /* Endless.metal in Sources */,
 				F2BA2980200357B40085299C /* CRT.metal in Sources */,
@@ -361,6 +376,7 @@
 				F25FFDF11FFF764000FB5ADA /* ColorTransform.swift in Sources */,
 				F2BA296B200229320085299C /* Cartoon.metal in Sources */,
 				F25282211F332CA40067750A /* SeparateRGB.metal in Sources */,
+				F2A971CD20A1761E0025B802 /* PassThrough.metal in Sources */,
 				F2BA296F20023A140085299C /* Drunk.metal in Sources */,
 				F22E96EC1FFCB74600589D6B /* MetalManager.swift in Sources */,
 				F25282241F345F270067750A /* Extensions.swift in Sources */,

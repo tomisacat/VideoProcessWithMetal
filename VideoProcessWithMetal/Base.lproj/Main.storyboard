@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13770" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="LPp-oR-mW6">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13770"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Camera-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VideoProcessWithMetal" customModuleProvider="target" sceneMemberID="viewController">
@@ -33,15 +33,18 @@
                                                 <action selector="captureAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SWb-4Y-neV"/>
                                             </connections>
                                         </button>
-                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xhI-Yc-ffa">
-                                            <rect key="frame" x="8" y="5" width="51" height="31"/>
-                                        </switch>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe &gt;&gt;&gt; to change filter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENo-TB-FbM">
+                                            <rect key="frame" x="8" y="10" width="202.5" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="UaU-wB-jav" firstAttribute="centerY" secondItem="Dys-8W-b6b" secondAttribute="centerY" id="8s3-XU-QcQ"/>
                                         <constraint firstAttribute="trailing" secondItem="UaU-wB-jav" secondAttribute="trailing" constant="8" id="MBf-i1-sZA"/>
-                                        <constraint firstItem="xhI-Yc-ffa" firstAttribute="leading" secondItem="Dys-8W-b6b" secondAttribute="leading" constant="8" id="f4g-Ld-ilT"/>
-                                        <constraint firstItem="xhI-Yc-ffa" firstAttribute="centerY" secondItem="Dys-8W-b6b" secondAttribute="centerY" id="iaa-MX-0ZI"/>
+                                        <constraint firstItem="ENo-TB-FbM" firstAttribute="centerY" secondItem="Dys-8W-b6b" secondAttribute="centerY" id="emV-Dh-Qpu"/>
+                                        <constraint firstItem="ENo-TB-FbM" firstAttribute="leading" secondItem="Dys-8W-b6b" secondAttribute="leading" constant="8" id="tT4-oz-MhQ"/>
                                     </constraints>
                                 </view>
                                 <constraints>
@@ -58,14 +61,160 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Camera" id="Con-F8-UFf"/>
                     <connections>
                         <outlet property="mtkView" destination="8bC-Xf-vdC" id="2L4-fY-bTM"/>
-                        <outlet property="shaderSwitch" destination="xhI-Yc-ffa" id="pgQ-tm-zLc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="36" y="37.331334332833585"/>
+            <point key="canvasLocation" x="1396" y="-713"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="N8i-TN-Lne">
+            <objects>
+                <viewController id="LPp-oR-mW6" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xTz-3i-e8e">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RMe-gk-99g">
+                                <rect key="frame" x="117" y="318" width="140" height="30"/>
+                                <state key="normal" title="Local File - AVPlayer"/>
+                                <connections>
+                                    <segue destination="M5j-BU-fcY" kind="presentation" id="BIY-L1-4XE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TrE-Sy-zvJ">
+                                <rect key="frame" x="160" y="258" width="54" height="30"/>
+                                <state key="normal" title="Camera"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" id="yF2-lc-pt4"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mnu-b4-m2I">
+                                <rect key="frame" x="95" y="378" width="184" height="30"/>
+                                <state key="normal" title="Local File - AVAssetReader"/>
+                                <connections>
+                                    <segue destination="apj-5p-6Jw" kind="presentation" id="0EN-LX-PXg"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="RMe-gk-99g" firstAttribute="centerY" secondItem="xTz-3i-e8e" secondAttribute="centerY" id="5EB-nJ-63G"/>
+                            <constraint firstItem="TrE-Sy-zvJ" firstAttribute="centerX" secondItem="xTz-3i-e8e" secondAttribute="centerX" id="CNo-fH-wqU"/>
+                            <constraint firstItem="Mnu-b4-m2I" firstAttribute="centerX" secondItem="xTz-3i-e8e" secondAttribute="centerX" id="Rll-ff-02r"/>
+                            <constraint firstItem="RMe-gk-99g" firstAttribute="centerX" secondItem="xTz-3i-e8e" secondAttribute="centerX" id="WsR-Qd-cxs"/>
+                            <constraint firstItem="Mnu-b4-m2I" firstAttribute="top" secondItem="RMe-gk-99g" secondAttribute="bottom" constant="30" id="ZQe-cD-zI0"/>
+                            <constraint firstItem="RMe-gk-99g" firstAttribute="top" secondItem="TrE-Sy-zvJ" secondAttribute="bottom" constant="30" id="bf9-l4-8bV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="CnD-5f-vtq"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="occ-uj-MI2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="567" y="-309"/>
+        </scene>
+        <!--Reader-->
+        <scene sceneID="Olr-Qv-f3g">
+            <objects>
+                <viewController id="apj-5p-6Jw" customClass="LocalFileReaderViewController" customModule="VideoProcessWithMetal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="DXp-ue-rKC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ROx-N7-V0x">
+                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="Ztc-JH-Yk9">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Transcoding..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="zE4-Ng-PFg">
+                                            <rect key="frame" x="8" y="10" width="359" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="zE4-Ng-PFg" firstAttribute="leading" secondItem="Ztc-JH-Yk9" secondAttribute="leading" constant="8" id="0MR-U3-3B7"/>
+                                        <constraint firstItem="zE4-Ng-PFg" firstAttribute="centerY" secondItem="Ztc-JH-Yk9" secondAttribute="centerY" id="pR5-DH-Erm"/>
+                                        <constraint firstAttribute="trailing" secondItem="zE4-Ng-PFg" secondAttribute="trailing" constant="8" id="yiJ-ff-ICh"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="MkZ-xe-vEe"/>
+                                </constraints>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ROx-N7-V0x" firstAttribute="trailing" secondItem="AJa-Cw-ze2" secondAttribute="trailing" id="I9e-DP-zjo"/>
+                            <constraint firstItem="ROx-N7-V0x" firstAttribute="bottom" secondItem="AJa-Cw-ze2" secondAttribute="bottom" id="kqa-31-HZ9"/>
+                            <constraint firstItem="ROx-N7-V0x" firstAttribute="leading" secondItem="AJa-Cw-ze2" secondAttribute="leading" id="zIf-bo-Slb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="AJa-Cw-ze2"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Reader" id="oLq-vV-qNL"/>
+                    <connections>
+                        <outlet property="hintLabel" destination="zE4-Ng-PFg" id="gCS-ZJ-85R"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="joN-9X-LNX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="566" y="448"/>
+        </scene>
+        <!--Local File-->
+        <scene sceneID="aaJ-d0-I3g">
+            <objects>
+                <viewController id="M5j-BU-fcY" customClass="LocalFileViewController" customModule="VideoProcessWithMetal" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ihe-Rg-07w" customClass="MTKView">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="41n-g8-ZzN">
+                                <rect key="frame" x="0.0" y="627" width="375" height="40"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VmO-ae-uyN">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filtered video will be saved to Photos when play to end" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="1wf-9W-QiD">
+                                            <rect key="frame" x="8" y="10" width="359" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="1wf-9W-QiD" secondAttribute="trailing" constant="8" id="2av-oE-o1S"/>
+                                        <constraint firstItem="1wf-9W-QiD" firstAttribute="leading" secondItem="VmO-ae-uyN" secondAttribute="leading" constant="8" id="5fZ-gt-UMj"/>
+                                        <constraint firstItem="1wf-9W-QiD" firstAttribute="centerY" secondItem="VmO-ae-uyN" secondAttribute="centerY" id="Axk-4G-Fcb"/>
+                                    </constraints>
+                                </view>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Bqs-JE-fxw"/>
+                                </constraints>
+                                <blurEffect style="dark"/>
+                            </visualEffectView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="41n-g8-ZzN" firstAttribute="bottom" secondItem="y3c-gr-d6L" secondAttribute="bottom" id="YwT-Mr-wzk"/>
+                            <constraint firstItem="41n-g8-ZzN" firstAttribute="leading" secondItem="y3c-gr-d6L" secondAttribute="leading" id="lNM-iu-gZc"/>
+                            <constraint firstItem="41n-g8-ZzN" firstAttribute="trailing" secondItem="y3c-gr-d6L" secondAttribute="trailing" id="z5Z-dr-NH7"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="y3c-gr-d6L"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Local File" id="Abq-Yu-e0M"/>
+                    <connections>
+                        <outlet property="mtkView" destination="ihe-Rg-07w" id="jUu-hv-jei"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="s52-1i-7Ej" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1396" y="-41"/>
         </scene>
     </scenes>
 </document>
