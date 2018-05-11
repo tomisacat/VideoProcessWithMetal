@@ -16,7 +16,7 @@ It's a demo project to illustrate how to process video with `Metal` framework. [
 
     ![](images/IMG_9090.PNG)
     
-3. [Read local file with AVAssetReader](https://youtu.be/zZC4Yz3vfgI)
+3. [Transcode local file with AVAssetReader](https://youtu.be/zZC4Yz3vfgI)
 
     ![](images/IMG_9091.PNG)
 
