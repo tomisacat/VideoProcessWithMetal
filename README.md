@@ -20,4 +20,13 @@ It's a demo project to illustrate how to process video with `Metal` framework. [
 
     ![](images/IMG_9091.PNG)
 
+### TODO
+
+* [ ] Compute original texture into an intermediate texture instead of computing directly with MTKView(currentDrawable.texture)
+* [ ] Switch filter progressively when touch moved 
+* [ ] Chaineble filters
+* [ ] Queueable commands(filter -> present -> append to file)
+* [ ] Clean debug information
+* [ ] Remove duplicate code
+
 
